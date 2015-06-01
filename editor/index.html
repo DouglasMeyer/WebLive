@@ -10,11 +10,30 @@
   </head>
   <body>
     <div id="editor"></div>
+    <div id="preview"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js"></script>
     <script>
       var editor = ace.edit("editor");
       editor.setTheme("ace/theme/monokai");
       editor.getSession().setMode("ace/mode/javascript");
+      
+      Function.prototype.debounce = function(delay){
+        var thisFn = this,
+            timeout;
+        return function(){
+          var args = arguments,
+              that = this;
+          if (timeout) clearTimeout(timeout);
+          setTimeout(function(){
+            timeout = undefined;
+            thisFn.apply(that, args);
+          }, delay);
+        }
+      };
+      
+      editor.getSession().on('change', function(e) {
+        debugger;
+      }.debounce(1000 * 2.5));
     </script>
   </body>
 </html>
