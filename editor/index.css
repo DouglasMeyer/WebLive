@@ -4,8 +4,6 @@ html, body {
   margin: 0;
 }
 
-[container] { position: relative; }
-
 [l-horizontal], [l-vertical] {
   display: flex;
 }
@@ -19,14 +17,6 @@ html, body {
 .menu {
   height: 2rem;
   line-height: 2;
-}
-
-.editor {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 iframe {
