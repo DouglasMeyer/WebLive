@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script src="//cdn.rawgit.com/oauth-io/oauth-js/0.4.1/dist/oauth.min.js"></script>
+    <h1>Login</h1>
+    <script>
+      OAuth.initialize('q7e1o7jSv4mj_k-ybGAdUIOVBLg');
+      OAuth.popup('github')
+      .done(function(result){
+        localStorage.setItem('github_token', result.access_token);
+        window.location = "/WebLive/editor";
+      })
+      .fail(console.error.bind(console));
+    </script>
+  </body>
+</html>
