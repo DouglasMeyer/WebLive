@@ -24,15 +24,16 @@
           var args = arguments,
               that = this;
           if (timeout) clearTimeout(timeout);
-          setTimeout(function(){
+          timeout = setTimeout(function(){
             timeout = undefined;
             thisFn.apply(that, args);
           }, delay);
         }
       };
       
+      var frame = document.getElementById('preview');
       editor.getSession().on('change', function(e) {
-        debugger;
+        frame.contentDocument.body.innerHTML = editor.getValue();
       }.debounce(1000 * 2.5));
     </script>
   </body>
