@@ -12,10 +12,11 @@
     <div id="editor"></div>
     <iframe id="preview"></iframe>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/mode-html.js"></script>
     <script>
       var editor = ace.edit("editor");
       editor.setTheme("ace/theme/monokai");
-      editor.getSession().setMode("ace/mode/javascript");
+      editor.getSession().setMode("ace/mode/html");
       
       Function.prototype.debounce = function(delay){
         var thisFn = this,
@@ -34,7 +35,7 @@
       var frame = document.getElementById('preview');
       editor.getSession().on('change', function(e) {
         frame.contentDocument.body.innerHTML = editor.getValue();
-      }.debounce(1000 * 2.5));
+      }.debounce(1000 * 1.5));
     </script>
   </body>
 </html>
