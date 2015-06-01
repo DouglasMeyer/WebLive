@@ -10,9 +10,9 @@ html, body {
 [l-vertical] {
   flex-direction: column;
 }
-[l-horizontal] > *, [l-vertical] > * {
-  flex-grow: 1;
-}
+
+[l-grow="1"], [l-grow] { flex-grow: 1; }
+[l-grow="2"] { flex-grow: 2; }
 
 .menu {
   height: 2rem;
