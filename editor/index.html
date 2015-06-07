@@ -64,8 +64,8 @@
         frame.contentWindow.eval( jsEditor.getValue() );
       }
       
-      htmlEditor.getSession().on('change', loadHTML.debounce(1000 * 1.5));
-      jsEditor.getSession().on('change', loadHTML.debounce(1000 * 1.5));
+      htmlEditor.getSession().on('change', loadFrame.debounce(1000 * 1.5));
+      jsEditor.getSession().on('change', loadFrame.debounce(1000 * 1.5));
       cssEditor.getSession().on('change', function(e){
         styleEl.innerHTML = cssEditor.getValue();
       });
