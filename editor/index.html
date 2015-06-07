@@ -60,11 +60,13 @@
         //frame.contentDocument.body.innerHTML = htmlEditor.getValue();
         frame.contentDocument.location.reload();
         frame.contentDocument.onload = function(){
+          try {
           frame.contentDocument.write( htmlEditor.getValue() );
           styleEl = frame.contentDocument.createElement('style');
           styleEl.innerHTML = cssEditor.getValue();
           frame.contentDocument.head.appendChild(styleEl);
           frame.contentWindow.eval( jsEditor.getValue() );
+          } catch (e) { console.error(e); }
         };
       }
       
