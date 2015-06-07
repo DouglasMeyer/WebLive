@@ -7,6 +7,9 @@ html, body {
 [l-horizontal], [l-vertical] {
   display: flex;
 }
+[l-horizontal] {
+  height: 100%;
+}
 [l-vertical] {
   flex-direction: column;
 }
