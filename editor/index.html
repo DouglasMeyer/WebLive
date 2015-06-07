@@ -58,6 +58,7 @@
       
       function loadFrame(){
         //frame.contentDocument.body.innerHTML = htmlEditor.getValue();
+        frame.contentDocument.location.reload();
         frame.contentDocument.write( htmlEditor.getValue() );
         styleEl = frame.contentDocument.createElement('style');
         styleEl.innerHTML = cssEditor.getValue();
