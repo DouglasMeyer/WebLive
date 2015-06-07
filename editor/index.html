@@ -54,9 +54,21 @@
       };
       
       var frame = document.getElementById('preview');
-      htmlEditor.getSession().on('change', function(e) {
+      var styleEl;
+      
+      function loadFrame(){
         frame.contentDocument.body.innerHTML = htmlEditor.getValue();
-      }.debounce(1000 * 1.5));
+        styleEl = frame.contentDocument.createElement('style');
+        styleEl.innerHTML = cssEditor.getValue();
+        frame.contentDocument.head.appendChild(styleEl);
+        frame.contentWindow.eval( jsEditor.getValue() );
+      }
+      
+      htmlEditor.getSession().on('change', loadHTML.debounce(1000 * 1.5));
+      jsEditor.getSession().on('change', loadHTML.debounce(1000 * 1.5));
+      cssEditor.getSession().on('change', function(e){
+        styleEl.innerHTML = cssEditor.getValue();
+      });
     </script>
   </body>
 </html>
