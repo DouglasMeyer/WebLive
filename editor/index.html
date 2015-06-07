@@ -56,13 +56,15 @@
       var frame = document.getElementById('preview');
       var styleEl;
       
-      function loadFrame(){
-        frame.contentDocument.location.reload();
+      frame.onload = function(){
         frame.contentDocument.body.innerHTML = htmlEditor.getValue();
         styleEl = frame.contentDocument.createElement('style');
         styleEl.innerHTML = cssEditor.getValue();
         frame.contentDocument.head.appendChild(styleEl);
         frame.contentWindow.eval( jsEditor.getValue() );
+      };
+      function loadFrame(){
+        frame.contentDocument.location.reload();
       }
       
       htmlEditor.getSession().on('change', loadFrame.debounce(1000 * 1.5));
