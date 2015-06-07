@@ -13,16 +13,31 @@
       <div id="open">Open</div>
     </div>
     <div l-horizontal l-grow>
-      <div l-grow id="editor"></div>
+      <div l-vertical>
+        <div l-grow id="html-editor"></div>
+        <div l-grow id="js-editor"></div>
+        <div l-grow id="css-editor"></div>
+      </div>
       <iframe id="preview" l-grow></iframe>
     </div>
     <script src="//cdn.rawgit.com/philschatz/octokat.js/v0.4.9/dist/octokat.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/mode-html.js"></script>
     <script>
-      var editor = ace.edit("editor");
-      editor.setTheme("ace/theme/monokai");
-      editor.getSession().setMode("ace/mode/html");
+      var htmlEditor = ace.edit("html-editor");
+      htmlEditor.setTheme("ace/theme/monokai");
+      htmlEditor.getSession().setMode("ace/mode/html");
+      htmlEditor.setValue("<!DOCTYPE html>");
+      
+      var jsEditor = ace.edit("js-editor");
+      jsEditor.setTheme("ace/theme/monokai");
+      jsEditor.getSession().setMode("ace/mode/javascript");
+      jsEditor.setValue("console.log('hi');");
+      
+      var cssEditor = ace.edit("css-editor");
+      cssEditor.setTheme("ace/theme/monokai");
+      cssEditor.getSession().setMode("ace/mode/css");
+      cssEditor.setValue("body { background-color: #888; }");
       
       Function.prototype.debounce = function(delay){
         var thisFn = this,
@@ -39,8 +54,8 @@
       };
       
       var frame = document.getElementById('preview');
-      editor.getSession().on('change', function(e) {
-        frame.contentDocument.body.innerHTML = editor.getValue();
+      htmlEditor.getSession().on('change', function(e) {
+        frame.contentDocument.body.innerHTML = htmlEditor.getValue();
       }.debounce(1000 * 1.5));
     </script>
   </body>
