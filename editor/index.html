@@ -72,7 +72,7 @@
       cssEditor.getSession().on('change', function(e){
         styleEl.innerHTML = cssEditor.getValue();
       });
-      loadFrame();
+      setTimeout(loadFrame);
     </script>
   </body>
 </html>
