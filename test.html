@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebLive - test</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <script>
+      fetch('https://api.github.com/repos/DouglasMeyer/WebLive/git/refs')
+        .then(response => response.json())
+        .then(console.log, console.error);
+    </script>
+  </body>
+</html>
