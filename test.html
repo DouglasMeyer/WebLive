@@ -11,15 +11,17 @@
       Promise.prototype.log = function(){
         return this
           .then((json) => {
+            window.json = json;
             const pre = document.createElement('pre');
             document.body.appendChild(pre);
-            pre.innerText = JSON.stringify(json);
+            pre.innerText = JSON.stringify(json, null, 2);
           })
           .catch((error) => {
+            window.error = error;
             const pre = document.createElement('pre');
             document.body.appendChild(pre);
             pre.style.color = "#C00"
-            pre.innerText = JSON.stringify(error);
+            pre.innerText = JSON.stringify(error, null, 2);
           });
       };
       
