@@ -16,7 +16,7 @@
       }
       
       async function gitFetch(path, options){
-        options.credentials = 'include';
+        if (options) options.credentials = 'include';
         const response = await fetch(`https://api.github.com/repos/DouglasMeyer/WebLive/git${path}`, options);
         return response.json();
       }
