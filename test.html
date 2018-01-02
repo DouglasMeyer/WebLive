@@ -8,6 +8,17 @@
   </head>
   <body>
     <script>
+      const params = location.search.slice(1).split('&').reduce((acc,s) => {
+        const [ name, value=true ] = s.split('=');
+        return {...acc, [name]: value };
+      }, {});
+      const { access_token: accessToken } = params
+      if (!accessToken) {
+//         location.href = "https://github.com/login/oauth/authorize?client_id=84f323e8565446cca576";
+        log("https://github.com/login/oauth/authorize?client_id=84f323e8565446cca576");
+        // Authorization: token OAUTH-TOKEN
+      }
+      
       function log(msg){
         window.msg = msg;
         const pre = document.createElement('pre');
@@ -16,7 +27,12 @@
       }
       
       async function gitFetch(path, options){
-        if (options) options.credentials = 'include';
+        if (options) {
+          options.credentials = 'include';
+          options.headers = new Headers({
+            'Authorization': accessToken
+          });
+        }
         const response = await fetch(`https://api.github.com/repos/DouglasMeyer/WebLive/git${path}`, options);
         return response.json();
       }
