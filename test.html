@@ -22,7 +22,7 @@
       
       (async function(){
         try {
-          const ref = await gitFetch('/refs/gh-pages');
+          const ref = await gitFetch('/refs/heads/gh-pages');
           log('ref');
           log(ref);
           const commit = await gitFetch(`/commits/${ref.object.sha}`);
