@@ -8,16 +8,8 @@
   </head>
   <body>
     <script>
-      const params = location.search.slice(1).split('&').reduce((acc,s) => {
-        const [ name, value=true ] = s.split('=');
-        return {...acc, [name]: value };
-      }, {});
-      const { access_token: accessToken } = params
-      if (!accessToken) {
-//         location.href = "https://github.com/login/oauth/authorize?client_id=84f323e8565446cca576";
-        log("https://github.com/login/oauth/authorize?client_id=84f323e8565446cca576");
-        // Authorization: token OAUTH-TOKEN
-      }
+      const accessTokenKey = 'WebLive.accessToken';
+      let accessToken;
       
       function log(msg){
         window.msg = msg;
@@ -39,15 +31,41 @@
       
       (async function(){
         try {
+          accessToken = localStorage.getItem(accessTokenKey);
+       
+          if (!accessToken) {
+            const client_id = "84f323e8565446cca576";
+            const client_secret = "79851e1c502c9d5506397922119598fe2f38c143";
+
+            const params = location.search.slice(1).split('&').reduce((acc,s) => {
+              const [ name, value=true ] = s.split('=');
+              return {...acc, [name]: value };
+            }, {});
+            const { code } = params
+            if (!code) {
+      //         location.href = "https://github.com/login/oauth/authorize?client_id=84f323e8565446cca576";
+              log("https://github.com/login/oauth/authorize?client_id=84f323e8565446cca576");
+              return;
+              // Authorization: token OAUTH-TOKEN
+            }
+
+            { access_token: accessToken } = await fetch('https://github.com/login/oauth/access_token', {
+              method: 'POST', body: JSON.stringify({ client_id, client_secret, code })
+            });
+          }
+          
           const ref = await gitFetch('/refs/heads/gh-pages');
           log('ref');
           log(ref);
+          
           const commit = await gitFetch(`/commits/${ref.object.sha}`);
           log('commit');
           log(commit);
+          
           const blob = await gitFetch('/blobs', { method: 'POST', body: JSON.stringify({ content: `some stuff` }) });
           log('blob');
           log(blob);
+          
           const newTree = await gitFetch('/trees', {
             method: "POST",
             body: JSON.stringify({
@@ -64,6 +82,7 @@
           });
           log('newTree');
           log(newTree);
+          
           const newCommit = await gitFetch('/commits', {
             method: "POST",
             body: JSON.stringify({
@@ -82,6 +101,7 @@
           });
           log('newCommit');
           log(newCommit);
+          
         } catch (e) {
           window.e = e;
           log('error');
