@@ -43,15 +43,17 @@
             }, {});
             const { code } = params
             if (!code) {
-      //         location.href = "https://github.com/login/oauth/authorize?client_id=84f323e8565446cca576";
-              log("https://github.com/login/oauth/authorize?client_id=84f323e8565446cca576");
+              location.href = `https://github.com/login/oauth/authorize?client_id=${client_id}`;
               return;
               // Authorization: token OAUTH-TOKEN
             }
 
-            { access_token: accessToken } = await fetch('https://github.com/login/oauth/access_token', {
+            const token = await fetch('https://github.com/login/oauth/access_token', {
               method: 'POST', body: JSON.stringify({ client_id, client_secret, code })
             });
+            log('token');
+            log(token);
+            accessToken = token.access_token;
           }
           
           const ref = await gitFetch('/refs/heads/gh-pages');
