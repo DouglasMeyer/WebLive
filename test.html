@@ -43,7 +43,7 @@
             }, {});
             const { code } = params
             if (!code) {
-              location.href = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_url=${encodeURIComponent(location.host+location.pathname)}`;
+              location.href = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=${encodeURIComponent(location.host+location.pathname)}`;
               return;
               // Authorization: token OAUTH-TOKEN
             }
